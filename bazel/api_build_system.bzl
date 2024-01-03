@@ -117,9 +117,9 @@ def xds_proto_package(
         visibility = ["//visibility:public"],
         deps = depset([_go_proto_mapping(dep) for dep in deps] + [
             "@com_envoyproxy_protoc_gen_validate//validate:go_default_library",
-            "@com_github_golang_protobuf//ptypes:go_default_library_gen",
-            "@go_googleapis//google/api:annotations_go_proto",
-            "@go_googleapis//google/rpc:status_go_proto",
+            "@com_google_protobuf//:any_proto",
+            "@com_google_googleapis//google/api:annotations_go_proto",
+            "@com_google_googleapis//google/rpc:status_go_proto",
             "@io_bazel_rules_go//proto/wkt:any_go_proto",
             "@io_bazel_rules_go//proto/wkt:duration_go_proto",
             "@io_bazel_rules_go//proto/wkt:struct_go_proto",

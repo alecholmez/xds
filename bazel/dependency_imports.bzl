@@ -6,7 +6,7 @@ load("@com_envoyproxy_protoc_gen_validate//bazel:repositories.bzl", "pgv_depende
 load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_proto_toolchains")
 
 # go version for rules_go
-GO_VERSION = "1.20.2"
+GO_VERSION = "1.21.2"
 
 def xds_dependency_imports(go_version = GO_VERSION):
     rules_proto_dependencies()
@@ -32,6 +32,11 @@ def xds_dependency_imports(go_version = GO_VERSION):
         python = True,
         grpc = True,
     )
+
+    # gazelle:resolve proto proto google/rpc/status.proto @googleapis//google/rpc:status_proto
+    # gazelle:resolve proto go google/rpc/status.proto  @org_golang_google_genproto//googleapis/rpc/status
+    # gazelle:resolve proto google/longrunning/operations.proto @googleapis//google/longrunning:operations_proto
+    # gazelle:resolve proto go google/longrunning/operations.proto @org_golang_google_genproto//googleapis/longrunning
 
     # These dependencies, like most of the Go in this repository, exist only for the API.
     # These repos also have transient dependencies - `build_external` allows them to use them.
@@ -82,9 +87,9 @@ def xds_dependency_imports(go_version = GO_VERSION):
     )
     go_repository(
         name = "com_github_lyft_protoc_gen_star",
-        importpath = "github.com/lyft/protoc-gen-star/v2",
+        importpath = "github.com/lyft/protoc-gen-star",
         sum = "h1:keaAo8hRuAT0O3DfJ/wM3rufbAjGeJ1lAtWZHDjKGB0=",
-        version = "v2.0.1",
+        version = "v2.0.3",
         build_external = "external",
         # project_url = "https://pkg.go.dev/github.com/lyft/protoc-gen-star",
         # last_update = "2023-01-06"
@@ -94,16 +99,16 @@ def xds_dependency_imports(go_version = GO_VERSION):
     go_repository(
         name = "org_golang_google_protobuf",
         importpath = "google.golang.org/protobuf",
-        sum = "h1:d0NfwRgPtno5B1Wa6L2DAG+KivqkdutMf1UhdNx175w=",
-        version = "v1.28.1",
+        sum = "h1:pPC6BG5ex8PDFnkbrGU3EixyhKcQ2aDuBS36lqK/C7I=",
+        version = "v1.32.0",
         build_external = "external",
     )
     go_repository(
         name = "org_golang_google_grpc",
         build_file_proto_mode = "disable",
         importpath = "google.golang.org/grpc",
-        sum = "h1:AGJ0Ih4mHjSeibYkFGh1dD9KJ/eOtZ93I6hoHhukQ5Q=",
-        version = "v1.40.0",
+        sum = "h1:26+wFr+cNqSGFcOXcabYC0lUVJVRa2Sb2ortSK7VrEU=",
+        version = "v1.60.1",
     )
 
 
